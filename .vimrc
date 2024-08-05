@@ -70,8 +70,6 @@ set guifont=Comic\ Code\ Demo\ Regular:h12
 " -----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
-Plug 'rust-lang/rust.vim'
-
 call plug#end()
 
 syntax off

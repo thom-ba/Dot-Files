@@ -16,7 +16,6 @@ set relativenumber
 " Highlight current line
 set cursorline
 
-
 " Highlight cursor line underneath the cursor
 " set cursorcolumn
 
@@ -32,17 +31,11 @@ set expandtab
 
 " we dont need backup files 
 set nobackup
-
 set nowrap
-
 set showcmd
-
 set showmode
-
 set showmatch
-
 set hlsearch
-
 set wildmenu
 
 set wildmode=list:longest
@@ -64,12 +57,31 @@ function! RunCargoBin(bin_name)
   execute 'term ' . command
 endfunction
 
-set guifont=Comic\ Code\ Demo\ Regular:h12
+set guifont=ComicMono\ Nerd\ Font\ Regular:h12
 
 " Plugins
 " -----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
+" Gruvbox Theme
+Plug 'morhetz/gruvbox'
+Plug 'valloric/youcompleteme'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'ntk148v/komau.vim' 
+
 call plug#end()
 
-syntax off
+syntax on
+
+" Colorscheme
+colorscheme komau
+
+set background=dark
+
+" Komau Colorscheme Settings
+let g:komau_bold=0
+let g:komau_italic=0
+
+" Gruvbox Colorscheme Settings
+let g:gruvbox_contrast_dark = "hard"
+

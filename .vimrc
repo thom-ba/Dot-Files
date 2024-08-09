@@ -63,18 +63,19 @@ set guifont=ComicMono\ Nerd\ Font\ Regular:h12
 " -----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
-" Gruvbox Theme
-Plug 'morhetz/gruvbox'
-Plug 'valloric/youcompleteme'
+Plug 'morhetz/gruvbox' " Gruvbox Theme
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ntk148v/komau.vim' 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/seoul256.vim'
 
 call plug#end()
 
 syntax on
 
 " Colorscheme
-colorscheme komau
+colo seoul256
+" colorscheme gruvbox
 
 set background=dark
 
@@ -85,3 +86,8 @@ let g:komau_italic=0
 " Gruvbox Colorscheme Settings
 let g:gruvbox_contrast_dark = "hard"
 
+
+" Coc Config
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]g <Plug>(coc-diagnostic-next)

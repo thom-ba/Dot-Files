@@ -47,9 +47,21 @@ set wildmode=list:longest
 autocmd FileType rust setlocal makeprg=cargo\ build\ --message-format=short
 autocmd FileType rust setlocal errorformat=%f:%l:%c:\ %m 
 
-" Custom stuff
+" Custom stuff Commands
+let mapleader = "\<Space>"
+
 " Define the custom command with a parameter for the binary name
 command! -nargs=1 Rbin call RunCargoBin(<f-args>)
+
+" CamelCase to snake_case
+command! CamelToSnake :s/\([a-z]\)\([A-Z]\)/\1_\l\2/g
+
+" Map <leader>b to go to the previous buffer
+nnoremap <leader>b :bprevious<CR>
+
+" Map <leader>n to go to the next buffer
+nnoremap <leader>n :bnext<CR>
+
 
 " Define the function to run the Cargo command
 function! RunCargoBin(bin_name)

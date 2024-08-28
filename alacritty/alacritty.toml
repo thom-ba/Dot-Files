@@ -1,0 +1,31 @@
+live_config_reload = true
+
+[shell]
+program = "/bin/zsh"
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 0.9
+dynamic_padding = true
+
+padding.x = 5
+padding.y = 5
+
+decorations = "Buttonless"
+decorations_theme_variant = "Light" # "Dark"
+
+[font]
+normal.family = "Terminess Nerd Font Propo"
+bold.family = "Terminess Nerd Font Propo"
+italic.family = "Terminess Nerd Font Propo"
+bold_italic.family = "Terminess Nerd Font Propo"
+
+size = 20.0
+
+[keyboard] 
+bindings = [
+    { key = "F11", action="ToggleFullscreen" }
+]
+

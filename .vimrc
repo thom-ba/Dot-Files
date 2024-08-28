@@ -75,7 +75,7 @@ call plug#end()
 syntax on
 
 " Colorscheme
-colo seoul256
+colo one
 " colorscheme gruvbox
 
 set background=dark
@@ -94,6 +94,12 @@ nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
 nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <space>e <Cmd>CocCommand explorer<CR>
+
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 " Tmux and Broot
 " STILL working on it to work :/

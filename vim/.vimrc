@@ -62,6 +62,17 @@ nnoremap <leader>b :bprevious<CR>
 " Map <leader>n to go to the next buffer
 nnoremap <leader>n :bnext<CR>
 
+" Map <leader>f to FZF
+nnoremap <leader>f :FZF<CR>
+
+nnoremap <space>e <Cmd>NERDTreeToggle<CR>
+
+
+" Coc Config
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
+
 
 " Define the function to run the Cargo command
 function! RunCargoBin(bin_name)
@@ -79,17 +90,19 @@ Plug 'morhetz/gruvbox' " Gruvbox Theme
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'ntk148v/komau.vim' 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
 Plug 'junegunn/seoul256.vim'
-Plug 'lstwn/broot.vim'
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'rhysd/vim-clang-format'
+ " Plug 'lstwn/broot.vim'
 
 call plug#end()
 
 syntax on
 
-" Colorscheme
-colo one
 " colorscheme gruvbox
-
 set background=dark
 
 " Komau Colorscheme Settings
@@ -99,19 +112,30 @@ let g:komau_italic=0
 " Gruvbox Colorscheme Settings
 let g:gruvbox_contrast_dark = "hard"
 
-
-" Coc Config
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
-nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
-
-nmap <space>e <Cmd>CocCommand explorer<CR>
-
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
+
+" Colorscheme
+colo alduin
+
+" Returns true if the color hex value is light
+function! IsHexColorLight(color) abort
+  let l:raw_color = trim(a:color, '#')
+
+  let l:red = str2nr(substitute(l:raw_color, '.{0}(.{2})', '1', 'g'), 16)
+  let l:green = str2nr(substitute(l:raw_color, '.{2}(.{2}).{2}', '1', 'g'), 16)
+  let l:blue = str2nr(substitute(l:raw_color, '.{4}(.{2})', '1', 'g'), 16)
+
+  let l:brightness = ((l:red * 299) + (l:green * 587) + (l:blue * 114)) / 1000
+
+  return l:brightness > 155
+endfunction
+
+" Clang Format
+let g:clang_format#detect_style_file = 1
 
 " Tmux and Broot
 " STILL working on it to work :/
@@ -120,3 +144,6 @@ endif
 "
 "let g:broot_replace_netrw = 1
 "let g:loaded_netrwPlugin = 1
+
+" highlight Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=NONE ctermbg=NONE

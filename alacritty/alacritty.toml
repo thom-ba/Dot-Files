@@ -16,11 +16,17 @@ padding.y = 5
 decorations = "Buttonless"
 decorations_theme_variant = "Light" # "Dark"
 
+# [font]
+# normal.family = "Terminess Nerd Font Propo"
+# bold.family = "Terminess Nerd Font Propo"
+# italic.family = "Terminess Nerd Font Propo"
+# bold_italic.family = "Terminess Nerd Font Propo"
+
 [font]
-normal.family = "Terminess Nerd Font Propo"
-bold.family = "Terminess Nerd Font Propo"
-italic.family = "Terminess Nerd Font Propo"
-bold_italic.family = "Terminess Nerd Font Propo"
+normal.family = "Terminess Nerd Font"
+bold.family = "Terminess Nerd Font"
+italic.family = "Terminess Nerd Font"
+bold_italic.family = "Terminess Nerd Font"
 
 size = 20.0
 

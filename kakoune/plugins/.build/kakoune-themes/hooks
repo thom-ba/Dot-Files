@@ -1,0 +1,2 @@
+
+[ -d "/home/tomba/.config/kak/colors" ] || mkdir -p "/home/tomba/.config/kak/colors"; ln -sf "$PWD" "/home/tomba/.config/kak/colors"

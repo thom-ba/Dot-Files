@@ -1,0 +1,101 @@
+# Display line numbers
+add-highlighter global/ number-lines -hlcursor -relative
+add-highlighter global/ show-matching
+
+set-option global ui_options terminal_assistant=cat
+set-option global tabstop 2
+set-option global indentwidth 2
+
+set-option global scrolloff 8,3
+
+map global normal <c-v> ":comment-line<ret>"
+
+map -docstring "close current buffer" global user k ": db<ret>"
+map -docstring "goto previous buffer" global user b ": bp<ret>"
+map -docstring "goto next buffer" global user n ": bn<ret>"
+
+map -docstring "insert newline above" global user [ "O<esc>j"
+map -docstring "insert newline below" global user ] "o<esc>k"
+
+evaluate-commands %sh{
+    plugins="$kak_config/plugins"
+    mkdir -p "$plugins"
+    [ ! -e "$plugins/plug.kak" ] && \
+        git clone -q https://github.com/andreyorst/plug.kak.git "$plugins/plug.kak"
+    printf "%s\n" "source '$plugins/plug.kak/rc/plug.kak'"
+}
+plug "andreyorst/plug.kak" noload
+
+colorscheme solarized-dark
+
+# plug "secondary-smiles/kakoune-themes"
+
+plug "alexherbo2/auto-pairs.kak" config %{
+  enable-auto-pairs
+}
+
+# fzf
+plug "andreyorst/fzf.kak" config %{
+  require-module fzf
+  require-module fzf-grep
+  require-module fzf-file
+} defer fzf %{
+  set-option global fzf_highlight_command "lat -r {}"
+} defer fzf-file %{
+  set-option global fzf_file_command "fd . --no-ignore-vcs"
+} defer fzf-grep %{
+  set-option global fzf_grep_command "fd"
+}
+map -docstring "open fzf" global user f ": fzf-mode<ret>"
+
+plug "andreyorst/powerline.kak" defer kakoune-themes %{
+  powerline-theme pastel
+} defer powerline %{
+  powerline-format global "git lsp bufname filetype mode_info lsp line_column position"
+  set-option global powerline_separator_thin ""
+  set-option global powerline_separator ""
+} config %{
+  powerline-start
+}
+
+plug "evanrelf/byline.kak" config %{
+  require-module "byline"
+}
+
+plug "gustavo-hms/luar" %{
+  require-module luar
+}
+
+plug "kak-lsp/kak-lsp" do %{
+  cargo install --locked --force --path .
+  # mkdir -p ~/.config/kak-lsp
+  # cp -n kak-lsp.toml ~/.config/kak-lsp/
+}
+
+hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp) %{
+  lsp-enable-window
+  lsp-inlay-diagnostics-enable global
+  lsp-inlay-hints-enable global
+}
+
+## enable syntax highlighting for each lang
+# c
+hook global WinSetOption filetype=c %{
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
+}
+map -docstring "open lsp" global user l ": enter-user-mode lsp<ret>"
+
+
+
+# Cursed ass custom stuff
+define-command build-cpp -params 0 -docstring "Compile C++ file" %{
+    try %{
+        shell "g++ %val{buffer-name} -o %val{buffer-name.base}.out && ./%val{buffer-name.base}.out"
+    }
+}
+

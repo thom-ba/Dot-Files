@@ -28,7 +28,7 @@ bold.family = "Terminess Nerd Font"
 italic.family = "Terminess Nerd Font"
 bold_italic.family = "Terminess Nerd Font"
 
-size = 20.0
+size = 15.0
 
 [keyboard] 
 bindings = [
